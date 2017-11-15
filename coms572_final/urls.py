@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from scheduler import views as sviews
+from scheduler import views as views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', sviews.index, name='index'),
+    url(r'^$', views.index, name='index'),
+    url(r'^buildings/$', views.buildings, name='buildings')
 ]
