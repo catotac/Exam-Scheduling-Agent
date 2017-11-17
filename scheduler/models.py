@@ -61,7 +61,6 @@ class TA(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, default=None, verbose_name='Course if head TA')
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
 
     class Meta:
@@ -87,3 +86,12 @@ class TAExam(models.Model):
     class Meta:
         verbose_name = 'Exam - TA Schedule'
         verbose_name_plural = 'Exam - TA Schedules'
+
+
+class TACourse(models.Model):
+    ta = models.ForeignKey(TA, on_delete=models.CASCADE, verbose_name='TA')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Master TA'
+        verbose_name_plural = 'Master TAs'
