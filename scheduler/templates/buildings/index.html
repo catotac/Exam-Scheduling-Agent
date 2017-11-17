@@ -1,7 +1,12 @@
+{% extends 'bootstrap.html' %}
+
+{% block content %}
 <h1>Building List</h1>
 <ul>
     {% for building in building_list %}
     <li>{{ building.name }}</li>
     {% endfor %}
 </ul>
+{% endblock %}
+
 
