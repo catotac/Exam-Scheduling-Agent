@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from .models import Building
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the Scheduler index.")
+    # Create context to render
+    context = { }
+    return render(request, 'index.html', context)
 
 
 def buildings(request):
