@@ -21,5 +21,9 @@ from scheduler import views as views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
-    url(r'^buildings/$', views.buildings, name='buildings')
+    url(r'^buildings/$', views.buildings, name='buildings'),
+    url(r'^classrooms/$', views.classrooms, name='classrooms'),
+    url(r'^courses/$', views.courses, name='courses'),
+    url(r'^exams/$', views.exams, name='exams'),
+    url(r'^tas/$', views.tas, name='tas'),
 ]

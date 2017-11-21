@@ -1,5 +1,9 @@
 {% extends 'bootstrap.html' %}
 
 {% block content %}
-<p>You are at the Scheduler App index</p>
+    {% if ta_exam %}
+    <!-- Display contents here -->
+    {% else %}
+    <p>No TAs are assigned to exams. Would you like to assign them now?</p>
+    {% endif %}
 {% endblock %}
