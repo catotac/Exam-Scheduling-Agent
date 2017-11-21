@@ -1,11 +1,14 @@
 from django.shortcuts import render
 
-from .models import Building
+from .models import *
 
 
 def index(request):
+    # Query model (Show TA-Exam Relation)
+    ta_exam = TAExam.objects.all()
+
     # Create context to render
-    context = { }
+    context = {'ta_exam': ta_exam}
     return render(request, 'index.html', context)
 
 
