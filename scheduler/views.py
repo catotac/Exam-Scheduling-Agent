@@ -11,8 +11,8 @@ def index(request):
 
 def buildings(request):
     # Query model
-    building_list = Building.objects.all()
+    obj_list = Building.objects.all()
 
     # Create context to render
-    context = {'building_list': building_list}
+    context = {'obj_list': obj_list}
     return render(request, 'buildings/index.html', context)
