@@ -71,7 +71,7 @@ class TA(models.Model):
 class TASchedule(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
+    ta = models.ForeignKey(TA, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'TA Schedule'
