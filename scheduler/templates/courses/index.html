@@ -3,11 +3,18 @@
 {% block content %}
     {% if obj_list %}
     <h1>Course List</h1>
-    <ul>
+    <div class="row">
+        <div class="col">Name/Code</div>
+        <div class="col">Capacity</div>
+        <div class="col">Building</div>
+    </div>
         {% for obj in obj_list %}
-        <li>{{ obj.code }}</li>
+        <div class="row">
+            <div class="col">{{ obj.code }}</div>
+            <div class="col">{{ obj.capacity }}</div>
+            <div class="col">{{ obj.classroom }}</div>
+        </div>
         {% endfor %}
-    </ul>
     {% else %}
     <p>No data to show!</p>
     {% endif %}

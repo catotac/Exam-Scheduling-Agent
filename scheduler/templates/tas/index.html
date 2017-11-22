@@ -3,11 +3,18 @@
 {% block content %}
     {% if obj_list %}
     <h1>TA List</h1>
-    <ul>
+    <div class="row">
+        <div class="col">TA Name</div>
+        <div class="col">E-mail</div>
+        <div class="col">Office Building</div>
+    </div>
         {% for obj in obj_list %}
-        <li>{{ obj.first_name }} {{ obj.last_name }}</li>
+        <div class="row">
+            <div class="col">{{ obj.last_name }}, {{ obj.first_name }}</div>
+            <div class="col">{{ obj.email }}</div>
+            <div class="col">{{ obj.building }}</div>
+        </div>
         {% endfor %}
-    </ul>
     {% else %}
     <p>No data to show!</p>
     {% endif %}

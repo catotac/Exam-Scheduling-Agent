@@ -2,7 +2,18 @@
 
 {% block content %}
     {% if ta_exam %}
-    <!-- Display contents here -->
+    <div class="row">
+        <div class="col">Teaching Assistant</div>
+        <div class="col">Exam</div>
+        <div class="col">Classroom</div>
+    </div>
+        {% for obj in ta_exam %}
+        <div class="row">
+            <div class="col">{{ obj.ta }}</div>
+            <div class="col">{{ obj.exam }}</div>
+            <div class="col">{{ obj.classroom }}</div>
+        </div>
+        {% endfor %}
     {% else %}
     <p>No TAs are assigned to exams. Would you like to assign them now?</p>
     {% endif %}
