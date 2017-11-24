@@ -45,7 +45,7 @@ class ClassroomGenerator(object):
                         'name': self._generic_name + str(num),
                         'capacity': random.randint(self._min_capacity, self._max_capacity),
                         'max_ta': random.randint(1, self._max_ta),
-                        'building_id': random.randint(0, len(self._building_list))}
+                        'building_id': random.randint(0, len(self._building_list)-1)}
                 retlist.append(temp)
 
         return retlist
@@ -71,7 +71,7 @@ class CourseGenerator(object):
                 temp = {'id': num,
                         'code': self._generic_name + ' ' + str(random.randint(1, 6)) + '0' + str(num),
                         'capacity': random.randint(self._min_capacity, self._max_capacity),
-                        'building_id': random.randint(0, len(self._building_list))}
+                        'building_id': random.randint(0, len(self._building_list)-1)}
                 retlist.append(temp)
 
         return retlist
@@ -93,7 +93,8 @@ class TAGenerator(object):
                 temp = {'id': num,
                         'first_name': self._generic_first_name + str(random.randint(100, 999)),
                         'last_name': self._generic_last_name + str(random.randint(100, 999)),
-                        'building_id': random.randint(0, len(self._building_list))}
+                        'email': 'ta_email' + str(random.randint(10, 99)) + '@test.com',
+                        'building_id': random.randint(0, len(self._building_list)-1)}
                 retlist.append(temp)
 
         return retlist
@@ -101,28 +102,33 @@ class TAGenerator(object):
 
 class ScheduleGenerator(object):
 
-    def __init__(self, num_instances=2, min_time=None, max_time=None, min_duration=60, max_duration=180):
+    def __init__(self, num_parents=5, num_instances=2, min_time=None, max_time=None, min_duration=60, max_duration=180):
+        self._num_parents = num_parents
         self._num_instances = num_instances
         self._min_time = min_time
         self._max_time = max_time
         self._min_duration = min_duration
         self._max_duration = max_duration
 
-    def generate(self, obj_id):
+    def generate(self):
         retlist = []
 
         if self._min_time and self._max_time:
-            for num in range(0, self._num_instances):
-                start_time = self._random_date()
-                temp = [start_time,
-                        start_time + datetime.timedelta(minutes=random.randint(self._min_duration, self._max_duration)),
-                        obj_id]
-                retlist.append(temp)
+            counter = 0
+            for parent_id in range(0, self._num_parents):
+                for num in range(0, self._num_instances):
+                    start_time = self._random_date()
+                    temp = {'id': counter,
+                            'start_time': start_time,
+                            'end_time': start_time + datetime.timedelta(minutes=random.randint(self._min_duration, self._max_duration)),
+                            'parent_id': parent_id}
+                    retlist.append(temp)
+                    counter += 1
 
         return retlist
 
     # Inspired from https://stackoverflow.com/a/81706518
     def _random_date(self):
         return self._min_time + datetime.timedelta(
-            minutes=random.randint(0, int((self._max_time - self._min_time).total_minutes())),
+            minutes=random.randint(0, int((self._max_time - self._min_time).total_seconds() / 60)-1),
         )
