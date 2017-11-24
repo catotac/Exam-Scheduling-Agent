@@ -4,15 +4,15 @@
     {% if obj_list %}
     <h1>Course List</h1>
     <div class="row">
-        <div class="col">Name/Code</div>
-        <div class="col">Capacity</div>
-        <div class="col">Building</div>
+        <div class="col"><strong>Name/Code</strong></div>
+        <div class="col"><strong>Capacity</strong></div>
+        <div class="col"><strong>Building</strong></div>
     </div>
         {% for obj in obj_list %}
         <div class="row">
             <div class="col">{{ obj.code }}</div>
             <div class="col">{{ obj.capacity }}</div>
-            <div class="col">{{ obj.classroom }}</div>
+            <div class="col">{{ obj.building.name }}</div>
         </div>
         {% endfor %}
     {% else %}

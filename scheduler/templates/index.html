@@ -4,17 +4,31 @@
     {% if ta_exam %}
     <div class="row">
         <div class="col">Teaching Assistant</div>
-        <div class="col">Exam</div>
+        <div class="col">Exam Course</div>
         <div class="col">Classroom</div>
     </div>
         {% for obj in ta_exam %}
         <div class="row">
-            <div class="col">{{ obj.ta }}</div>
-            <div class="col">{{ obj.exam }}</div>
-            <div class="col">{{ obj.classroom }}</div>
+            <div class="col">{{ obj.ta.last_name }}, {{ obj.ta.first_name }}</div>
+            <div class="col">{{ obj.exam.course.code }}</div>
+            <div class="col">{{ obj.classroom.name }}</div>
         </div>
         {% endfor %}
     {% else %}
-    <p>No TAs are assigned to exams. Would you like to assign them now?</p>
+    <p class="lead">No TAs are assigned to exams. Would you like to assign them now?</p>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="/datagen">Assign TAs to Exams</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-danger" href="/restart">Delete All Data!</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-warning" href="/datagen">Generate Random Data</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-secondary" href="/admin">Go to Admin Panel</a>
+        </div>
+    </div>
     {% endif %}
 {% endblock %}
