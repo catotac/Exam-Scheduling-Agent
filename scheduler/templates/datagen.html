@@ -2,7 +2,7 @@
 
 {% block content %}
 <form action="/datagen/" method="post">
-    <h1>Random Data Generator</h1>
+    <h2>Random Data Generator</h2>
     {% csrf_token %}
     <table class="table">
     {{ form.as_table }}

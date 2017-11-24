@@ -1,8 +1,8 @@
 {% extends 'bootstrap.html' %}
 
 {% block content %}
+    <h2>Building List</h2>
     {% if obj_list %}
-    <h1>Building List</h1>
     <div class="row">
         <div class="col"><strong>Name</strong></div>
         <div class="col"><strong>Location</strong></div>
@@ -14,6 +14,6 @@
         </div>
         {% endfor %}
     {% else %}
-    <p>No data to show!</p>
+    <p class="lead">No data to show!</p>
     {% endif %}
 {% endblock %}

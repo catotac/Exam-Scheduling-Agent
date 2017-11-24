@@ -1,8 +1,8 @@
 {% extends 'bootstrap.html' %}
 
 {% block content %}
+    <h2>TA List</h2>
     {% if obj_list %}
-    <h1>TA List</h1>
     <div class="row">
         <div class="col"><strong>TA Name</strong></div>
         <div class="col"><strong>E-mail</strong></div>
@@ -16,6 +16,6 @@
         </div>
         {% endfor %}
     {% else %}
-    <p>No data to show!</p>
+    <p class="lead">No data to show!</p>
     {% endif %}
 {% endblock %}
