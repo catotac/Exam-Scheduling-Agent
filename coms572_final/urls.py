@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^courses/$', views.courses, name='courses'),
     url(r'^exams/$', views.exams, name='exams'),
     url(r'^tas/$', views.tas, name='tas'),
+    url(r'^datagen/$', views.generate_data),
 ]
