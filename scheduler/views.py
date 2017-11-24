@@ -186,3 +186,16 @@ def generate_data(request):
 
     return render(request, 'datagen.html', {'form': form})
 
+
+def truncate_db(request):
+    Building.objects.all().delete()
+    Classroom.objects.all().delete()
+    ClassroomSchedule.objects.all().delete()
+    TA.objects.all().delete()
+    TASchedule.objects.all().delete()
+    Course.objects.all().delete()
+    Exam.objects.all().delete()
+    TACourse.objects.all().delete()
+    TAExam.objects.all().delete()
+
+    return HttpResponseRedirect('/')

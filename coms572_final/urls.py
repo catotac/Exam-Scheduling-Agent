@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^exams/$', views.exams, name='exams'),
     url(r'^tas/$', views.tas, name='tas'),
     url(r'^datagen/$', views.generate_data),
+    url(r'^restart/$', views.truncate_db),
 ]
