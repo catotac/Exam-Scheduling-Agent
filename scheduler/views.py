@@ -129,6 +129,23 @@ def generate_data(request):
                 db_input.classroom_id = obj['parent_id']
                 db_input.save()
 
+            classroom_schedgen_final = sgen.ScheduleGenerator(len(obj_classrooms),
+                                                              form.cleaned_data['classroom_num_schedules_final'],
+                                                              form.cleaned_data['classroom_schedule_min_time_final'],
+                                                              form.cleaned_data['classroom_schedule_max_time_final'],
+                                                              form.cleaned_data['classroom_schedule_min_final'],
+                                                              form.cleaned_data['classroom_schedule_max_final'])
+            obj_cl_scheds_final = classroom_schedgen_final.generate()
+
+            # Save object to the database
+            for obj in obj_cl_scheds_final:
+                db_input = ClassroomSchedule()
+                db_input.id = obj['id']
+                db_input.start_time = obj['start_time']
+                db_input.end_time = obj['end_time']
+                db_input.classroom_id = obj['parent_id']
+                db_input.save()
+
             # Generate courses
             course_gen = sgen.CourseGenerator(obj_buildings,
                                               form.cleaned_data['course_instances'],
