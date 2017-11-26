@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^classrooms/(?P<obj_id>[0-9]+)$', views.classroom),
     url(r'^courses/$', views.courses, name='courses'),
     url(r'^exams/$', views.exams, name='exams'),
+    url(r'^exams/(?P<obj_id>[0-9]+)$', views.exam),
     url(r'^tas/$', views.tas, name='tas'),
     url(r'^tas/(?P<obj_id>[0-9]+)$', views.ta),
     url(r'^datagen/$', views.generate_data),

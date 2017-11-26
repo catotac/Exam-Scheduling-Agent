@@ -71,6 +71,15 @@ def exams(request):
     return render(request, 'exams/index.html', context)
 
 
+def exam(request, obj_id):
+    ex = Exam.objects.get(pk=obj_id)
+    ta_list = TAExam.objects.all().filter(exam_id=obj_id)
+
+    # Create context to render
+    context = {'exam': ex, 'ta_list': ta_list}
+    return render(request, 'exams/detail.html', context)
+
+
 def tas(request):
     # Query model
     obj_list = TA.objects.all()
