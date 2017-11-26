@@ -1,5 +1,7 @@
 import random
-import datetime
+from datetime import datetime, timedelta
+from pytz import timezone
+import coms572_final.settings as settings
 
 
 class BuildingGenerator(object):
@@ -102,25 +104,29 @@ class TAGenerator(object):
 
 class ScheduleGenerator(object):
 
-    def __init__(self, num_parents=5, num_instances=2, min_time=None, max_time=None, min_duration=60, max_duration=180):
+    def __init__(self, num_parents=5, num_instances=2, min_date=None, max_date=None, min_duration=60, max_duration=180):
         self._num_parents = num_parents
         self._num_instances = num_instances
-        self._min_time = min_time
-        self._max_time = max_time
+        self._min_date = min_date
+        self._max_date = max_date
         self._min_duration = min_duration
         self._max_duration = max_duration
 
-    def generate(self):
+    def generate(self, min_time=datetime.now(timezone(settings.TIME_ZONE)), max_time=datetime.now(timezone(settings.TIME_ZONE)) + timedelta(hours=8)):
         retlist = []
 
-        if self._min_time and self._max_time:
+        if self._min_date and self._max_date:
             counter = 0
             for parent_id in range(0, self._num_parents):
                 for num in range(0, self._num_instances):
-                    start_time = self._random_date()
+                    d = self._random_date()
+                    ti = random.randint(int(min_time.timestamp()), int(max_time.timestamp()))
+                    t = datetime.fromtimestamp(ti)
+                    start_date = datetime(year=d.year, month=d.month, day=d.day)
+                    start_date = start_date.replace(hour=t.hour, minute=t.minute, second=t.second, tzinfo=timezone(settings.TIME_ZONE))
                     temp = {'id': counter,
-                            'start_time': start_time,
-                            'end_time': start_time + datetime.timedelta(minutes=random.randint(self._min_duration, self._max_duration)),
+                            'start_time': start_date,
+                            'end_time': start_date + timedelta(minutes=random.randint(self._min_duration, self._max_duration)),
                             'parent_id': parent_id}
                     retlist.append(temp)
                     counter += 1
@@ -129,6 +135,6 @@ class ScheduleGenerator(object):
 
     # Inspired from https://stackoverflow.com/a/81706518
     def _random_date(self):
-        return self._min_time + datetime.timedelta(
-            minutes=random.randint(0, int((self._max_time - self._min_time).total_seconds() / 60)-1),
+        return self._min_date + timedelta(
+            minutes=random.randint(0, int((self._max_date - self._min_date).total_seconds() / 60)-1),
         )

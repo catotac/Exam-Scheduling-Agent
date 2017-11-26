@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import Http404
 
+from datetime import datetime, timedelta
+from pytz import timezone
+import coms572_final.settings as settings
+
 from datagen import Scheduler as sgen
 
 from .models import *
@@ -164,6 +168,11 @@ def generate_data(request):
                 db_input.building_id = obj['building_id']
                 db_input.save()
 
+            # Classroom schedule should start at 8:00 AM and end at 5:00 PM
+            cl_schedule_start = datetime.now(timezone(settings.TIME_ZONE))
+            cl_schedule_start = cl_schedule_start.replace(hour=8, minute=0, second=0)
+            cl_schedule_end = cl_schedule_start + timedelta(hours=9)
+
             classroom_schedgen = sgen.ScheduleGenerator(len(obj_classrooms),
                                                         form.cleaned_data['classroom_num_schedules'],
                                                         form.cleaned_data['classroom_schedule_min_time'],
@@ -187,7 +196,7 @@ def generate_data(request):
                                                               form.cleaned_data['classroom_schedule_max_time_final'],
                                                               form.cleaned_data['classroom_schedule_min_final'],
                                                               form.cleaned_data['classroom_schedule_max_final'])
-            obj_cl_scheds_final = classroom_schedgen_final.generate()
+            obj_cl_scheds_final = classroom_schedgen_final.generate(cl_schedule_start, cl_schedule_end)
 
             # Save object to the database
             for obj in obj_cl_scheds_final:
@@ -229,13 +238,18 @@ def generate_data(request):
                 db_input.building_id = obj['building_id']
                 db_input.save()
 
+            # TA schedule should start from 9:00 AM and end at 9:00 PM
+            ta_schedule_start = datetime.now(timezone(settings.TIME_ZONE))
+            ta_schedule_start = ta_schedule_start.replace(hour=9, minute=0, second=0)
+            ta_schedule_end = ta_schedule_start + timedelta(hours=12)
+
             ta_schedgen = sgen.ScheduleGenerator(len(obj_tas),
                                                  form.cleaned_data['ta_num_schedules'],
                                                  form.cleaned_data['ta_schedule_min_time'],
                                                  form.cleaned_data['ta_schedule_max_time'],
                                                  form.cleaned_data['ta_schedule_min'],
                                                  form.cleaned_data['ta_schedule_max'])
-            obj_ta_scheds = ta_schedgen.generate()
+            obj_ta_scheds = ta_schedgen.generate(ta_schedule_start, ta_schedule_end)
 
             # Save object to the database
             for obj in obj_ta_scheds:
