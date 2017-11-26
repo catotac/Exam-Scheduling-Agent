@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if ta_exam %}
-    <h2>TA Assignment Results</h2>
+    <h2>TA Exam Assignment Results</h2>
     <div class="row">
         <div class="col"><strong>Teaching Assistant</strong></div>
         <div class="col"><strong>Exam Course</strong></div>
@@ -10,9 +10,9 @@
     </div>
         {% for obj in ta_exam %}
         <div class="row">
-            <div class="col">{{ obj.ta.last_name }}, {{ obj.ta.first_name }}</div>
-            <div class="col">{{ obj.exam.course.code }}</div>
-            <div class="col">{{ obj.classroom.name }}</div>
+            <div class="col"><a hre="/tas/{{ obj.ta_id }}">{{ obj.ta.last_name }}, {{ obj.ta.first_name }}</a></div>
+            <div class="col">{{ obj.exam.type }} for {{ obj.exam.course.code }}</div>
+            <div class="col"><a href="/classrooms/{{ obj.classroom_id }}">{{ obj.classroom.name }}</a></div>
         </div>
         {% endfor %}
     {% else %}
