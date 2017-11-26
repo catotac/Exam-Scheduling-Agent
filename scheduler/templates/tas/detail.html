@@ -28,4 +28,20 @@
     {% else %}
     <p class="lead">TA has no head TA assignments!</p>
     {% endif %}
+    <hr>
+    {% if exam_list %}
+    <h3>Assigned Exams</h3>
+    <div class="row">
+        <div class="col"><strong>Exam Course</strong></div>
+        <div class="col"><strong>Exam Type</strong></div>
+    </div>
+        {% for exam in exam_list %}
+        <div class="row">
+            <div class="col">{{ exam.course.code }}</div>
+            <div class="col">{{ exam.type }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p class="lead">TA has no exam assignments!</p>
+    {% endif %}
 {% endblock %}

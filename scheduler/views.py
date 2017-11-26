@@ -84,9 +84,10 @@ def ta(request, obj_id):
     ta = TA.objects.get(pk=obj_id)
     ta_schedule = TASchedule.objects.all().filter(ta_id=obj_id)
     ta_course = TACourse.objects.all().filter(ta_id=obj_id)
+    ta_exam = TAExam.objects.all().filter(ta_id=obj_id)
 
     # Create context to render
-    context = {'ta': ta, 'schedule_list': ta_schedule, 'course_list': ta_course}
+    context = {'ta': ta, 'schedule_list': ta_schedule, 'course_list': ta_course, 'exam_list': ta_exam}
     return render(request, 'tas/detail.html', context)
 
 
