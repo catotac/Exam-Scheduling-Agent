@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import Http404
 
 from datagen import Scheduler as sgen
 
@@ -26,7 +27,10 @@ def buildings(request):
 
 
 def building(request, obj_id):
-    bl = Building.objects.get(pk=obj_id)
+    try:
+        bl = Building.objects.get(pk=obj_id)
+    except Building.DoesNotExist:
+        raise Http404("The building requested does not exist!")
     bl_ta = TA.objects.all().filter(building=bl)
     bl_cl = Classroom.objects.all().filter(building=bl)
 
@@ -45,7 +49,10 @@ def classrooms(request):
 
 
 def classroom(request, obj_id):
-    cl = Classroom.objects.get(pk=obj_id)
+    try:
+        cl = Classroom.objects.get(pk=obj_id)
+    except Classroom.DoesNotExist:
+        raise Http404("The classroom requested does not exist!")
     cl_scheds = ClassroomSchedule.objects.all().filter(classroom_id=obj_id)
 
     # Create context to render
@@ -72,7 +79,10 @@ def exams(request):
 
 
 def exam(request, obj_id):
-    ex = Exam.objects.get(pk=obj_id)
+    try:
+        ex = Exam.objects.get(pk=obj_id)
+    except Exam.DoesNotExist:
+        raise Http404("The exam requested does not exist!")
     ta_list = TAExam.objects.all().filter(exam_id=obj_id)
 
     # Create context to render
@@ -90,7 +100,10 @@ def tas(request):
 
 
 def ta(request, obj_id):
-    ta = TA.objects.get(pk=obj_id)
+    try:
+        ta = TA.objects.get(pk=obj_id)
+    except TA.DoesNotExist:
+        raise Http404("The TA requested does not exist!")
     ta_schedule = TASchedule.objects.all().filter(ta_id=obj_id)
     ta_course = TACourse.objects.all().filter(ta_id=obj_id)
     ta_exam = TAExam.objects.all().filter(ta_id=obj_id)
