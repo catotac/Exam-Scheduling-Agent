@@ -82,10 +82,11 @@ def tas(request):
 
 def ta(request, obj_id):
     ta = TA.objects.get(pk=obj_id)
-    ta_scheds = TASchedule.objects.all().filter(ta_id=obj_id)
+    ta_schedule = TASchedule.objects.all().filter(ta_id=obj_id)
+    ta_course = TACourse.objects.all().filter(ta_id=obj_id)
 
     # Create context to render
-    context = {'ta': ta, 'obj_list': ta_scheds}
+    context = {'ta': ta, 'schedule_list': ta_schedule, 'course_list': ta_course}
     return render(request, 'tas/detail.html', context)
 
 

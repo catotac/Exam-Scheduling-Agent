@@ -2,18 +2,30 @@
 
 {% block content %}
     <h2>{{ ta.last_name }}, {{ ta.first_name }} Schedule</h2>
-    {% if obj_list %}
+    {% if schedule_list %}
+    <h3>TA Schedule</h3>
     <div class="row">
         <div class="col"><strong>Start Time</strong></div>
         <div class="col"><strong>End Time</strong></div>
     </div>
-        {% for obj in obj_list %}
+        {% for schedule in schedule_list %}
         <div class="row">
-            <div class="col">{{ obj.start_time }}</div>
-            <div class="col">{{ obj.end_time }}</div>
+            <div class="col">{{ schedule.start_time }}</div>
+            <div class="col">{{ schedule.end_time }}</div>
         </div>
         {% endfor %}
     {% else %}
     <p class="lead">No schedule to show!</p>
+    {% endif %}
+    <hr>
+    {% if course_list %}
+    <h3>Head TA Courses</h3>
+    <ul>
+        {% for course in course_list %}
+        <li>{{ course.code }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="lead">TA has no head TA assignments!</p>
     {% endif %}
 {% endblock %}
