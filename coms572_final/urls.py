@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^tas/(?P<obj_id>[0-9]+)$', views.ta),
     url(r'^datagen/$', views.generate_data),
     url(r'^restart/$', views.truncate_db),
+    url(r'^assign/$', views.assign_ta),
 ]

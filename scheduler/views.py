@@ -282,3 +282,10 @@ def truncate_db(request):
     TAExam.objects.all().delete()
 
     return HttpResponseRedirect('/')
+
+
+def assign_ta(request):
+    # The algorithms should be called here
+
+    # Redirect to home page
+    return HttpResponseRedirect('/')
