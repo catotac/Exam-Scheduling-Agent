@@ -32,14 +32,14 @@ def buildings(request):
 
 def building(request, obj_id):
     try:
-        bl = Building.objects.get(pk=obj_id)
+        current_building = Building.objects.get(pk=obj_id)
     except Building.DoesNotExist:
         raise Http404("The building requested does not exist!")
-    bl_ta = TA.objects.all().filter(building=bl)
-    bl_cl = Classroom.objects.all().filter(building=bl)
+    bl_ta = TA.objects.all().filter(building=current_building)
+    bl_cl = Classroom.objects.all().filter(building=current_building)
 
     # Create context to render
-    context = {'building': bl, 'ta_list': bl_ta, 'classroom_list': bl_cl}
+    context = {'building': current_building, 'ta_list': bl_ta, 'classroom_list': bl_cl}
     return render(request, 'buildings/detail.html', context)
 
 
@@ -54,13 +54,13 @@ def classrooms(request):
 
 def classroom(request, obj_id):
     try:
-        cl = Classroom.objects.get(pk=obj_id)
+        current_classroom = Classroom.objects.get(pk=obj_id)
     except Classroom.DoesNotExist:
         raise Http404("The classroom requested does not exist!")
-    cl_scheds = ClassroomSchedule.objects.all().filter(classroom_id=obj_id)
+    cl_scheds = ClassroomSchedule.objects.all().filter(classroom=current_classroom)
 
     # Create context to render
-    context = {'classroom': cl, 'obj_list': cl_scheds}
+    context = {'classroom': current_classroom, 'obj_list': cl_scheds}
     return render(request, 'classrooms/detail.html', context)
 
 
@@ -84,13 +84,13 @@ def exams(request):
 
 def exam(request, obj_id):
     try:
-        ex = Exam.objects.get(pk=obj_id)
+        current_exam = Exam.objects.get(pk=obj_id)
     except Exam.DoesNotExist:
         raise Http404("The exam requested does not exist!")
-    ta_list = TAExam.objects.all().filter(exam_id=obj_id)
+    ta_list = TAExam.objects.all().filter(exam=current_exam)
 
     # Create context to render
-    context = {'exam': ex, 'ta_list': ta_list}
+    context = {'exam': current_exam, 'ta_list': ta_list}
     return render(request, 'exams/detail.html', context)
 
 
@@ -105,15 +105,15 @@ def tas(request):
 
 def ta(request, obj_id):
     try:
-        ta = TA.objects.get(pk=obj_id)
+        current_ta = TA.objects.get(pk=obj_id)
     except TA.DoesNotExist:
         raise Http404("The TA requested does not exist!")
-    ta_schedule = TASchedule.objects.all().filter(ta_id=obj_id)
-    ta_course = TACourse.objects.all().filter(ta_id=obj_id)
-    ta_exam = TAExam.objects.all().filter(ta_id=obj_id)
+    ta_schedule = TASchedule.objects.all().filter(ta=current_ta)
+    ta_course = TACourse.objects.all().filter(ta=current_ta)
+    ta_exam = TAExam.objects.all().filter(ta=current_ta)
 
     # Create context to render
-    context = {'ta': ta, 'schedule_list': ta_schedule, 'course_list': ta_course, 'exam_list': ta_exam}
+    context = {'ta': current_ta, 'schedule_list': ta_schedule, 'course_list': ta_course, 'exam_list': ta_exam}
     return render(request, 'tas/detail.html', context)
 
 
