@@ -1,0 +1,38 @@
+{% extends 'bootstrap.html' %}
+
+{% block content %}
+    <h2>{{ building.name }} Details</h2>
+    {% if ta_list %}
+    <h3>TAs in this building</h3>
+    <div class="row">
+        <div class="col"><strong>Name</strong></div>
+        <div class="col"><strong>E-mail</strong></div>
+    </div>
+        {% for ta in ta_list %}
+        <div class="row">
+            <div class="col"><a href="/tas/{{ ta.id }}">{{ ta.last_name }}, {{ ta.first_name }}</a></div>
+            <div class="col">{{ ta.email }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p class="lead">No TAs to show!</p>
+    {% endif %}
+    <hr>
+    {% if classroom_list %}
+    <h3>Classrooms in this building</h3>
+    <div class="row">
+        <div class="col"><strong>Name</strong></div>
+        <div class="col"><strong>Capacity</strong></div>
+        <div class="col"><strong>Max TA</strong></div>
+    </div>
+        {% for classroom in classroom_list %}
+        <div class="row">
+            <div class="col"><a href="/classrooms/{{ classroom.id }}">{{ classroom.name }}</a></div>
+            <div class="col">{{ classroom.capacity }}</div>
+            <div class="col">{{ classroom.max_ta }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p class="lead">No classrooms to show!</p>
+    {% endif %}
+{% endblock %}

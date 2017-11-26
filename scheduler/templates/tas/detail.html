@@ -1,0 +1,19 @@
+{% extends 'bootstrap.html' %}
+
+{% block content %}
+    <h2>{{ ta.last_name }}, {{ ta.first_name }} Schedule</h2>
+    {% if obj_list %}
+    <div class="row">
+        <div class="col"><strong>Start Time</strong></div>
+        <div class="col"><strong>End Time</strong></div>
+    </div>
+        {% for obj in obj_list %}
+        <div class="row">
+            <div class="col">{{ obj.start_time }}</div>
+            <div class="col">{{ obj.end_time }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p class="lead">No schedule to show!</p>
+    {% endif %}
+{% endblock %}

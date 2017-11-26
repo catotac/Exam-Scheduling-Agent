@@ -6,15 +6,15 @@
     <div class="row">
         <div class="col"><strong>Name</strong></div>
         <div class="col"><strong>Capacity</strong></div>
-        <div class="col"><strong>Max TA Allocation</strong></div>
+        <div class="col"><strong>Max TA</strong></div>
         <div class="col"><strong>Building</strong></div>
     </div>
         {% for obj in obj_list %}
         <div class="row">
-            <div class="col">{{ obj.name }}</div>
+            <div class="col"><a href="/classrooms/{{ obj.id }}">{{ obj.name }}</a></div>
             <div class="col">{{ obj.capacity }}</div>
             <div class="col">{{ obj.max_ta }}</div>
-            <div class="col">{{ obj.building.name }}</div>
+            <div class="col"><a href="/buildings/{{ obj.building_id }}">{{ obj.building.name }}</a></div>
         </div>
         {% endfor %}
     {% else %}

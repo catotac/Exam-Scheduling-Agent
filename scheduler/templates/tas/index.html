@@ -10,9 +10,9 @@
     </div>
         {% for obj in obj_list %}
         <div class="row">
-            <div class="col">{{ obj.last_name }}, {{ obj.first_name }}</div>
+            <div class="col"><a href="/tas/{{ obj.id }}">{{ obj.last_name }}, {{ obj.first_name }}</a></div>
             <div class="col">{{ obj.email }}</div>
-            <div class="col">{{ obj.building.name }}</div>
+            <div class="col"><a href="/buildings/{{ obj.building_id }}">{{ obj.building.name }}</a></div>
         </div>
         {% endfor %}
     {% else %}

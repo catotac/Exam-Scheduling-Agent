@@ -9,7 +9,7 @@
     </div>
         {% for obj in obj_list %}
         <div class="row">
-            <div class="col">{{ obj.name }}</div>
+            <div class="col"><a href="/buildings/{{ obj.id }}">{{ obj.name }}</a></div>
             <div class="col">({{ obj.coord_x }}, {{ obj.coord_y }})</div>
         </div>
         {% endfor %}

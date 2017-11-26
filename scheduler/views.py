@@ -25,6 +25,16 @@ def buildings(request):
     return render(request, 'buildings/index.html', context)
 
 
+def building(request, obj_id):
+    bl = Building.objects.get(pk=obj_id)
+    bl_ta = TA.objects.all().filter(building=bl)
+    bl_cl = Classroom.objects.all().filter(building=bl)
+
+    # Create context to render
+    context = {'building': bl, 'ta_list': bl_ta, 'classroom_list': bl_cl}
+    return render(request, 'buildings/detail.html', context)
+
+
 def classrooms(request):
     # Query model
     obj_list = Classroom.objects.all()
@@ -32,6 +42,15 @@ def classrooms(request):
     # Create context to render
     context = {'obj_list': obj_list}
     return render(request, 'classrooms/index.html', context)
+
+
+def classroom(request, obj_id):
+    cl = Classroom.objects.get(pk=obj_id)
+    cl_scheds = ClassroomSchedule.objects.all().filter(classroom_id=obj_id)
+
+    # Create context to render
+    context = {'classroom': cl, 'obj_list': cl_scheds}
+    return render(request, 'classrooms/detail.html', context)
 
 
 def courses(request):
@@ -59,6 +78,15 @@ def tas(request):
     # Create context to render
     context = {'obj_list': obj_list}
     return render(request, 'tas/index.html', context)
+
+
+def ta(request, obj_id):
+    ta = TA.objects.get(pk=obj_id)
+    ta_scheds = TASchedule.objects.all().filter(ta_id=obj_id)
+
+    # Create context to render
+    context = {'ta': ta, 'obj_list': ta_scheds}
+    return render(request, 'tas/detail.html', context)
 
 
 def generate_data(request):

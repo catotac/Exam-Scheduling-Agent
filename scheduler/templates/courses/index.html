@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col">{{ obj.code }}</div>
             <div class="col">{{ obj.capacity }}</div>
-            <div class="col">{{ obj.building.name }}</div>
+            <div class="col"><a href="/buildings/{{ obj.building_id }}">{{ obj.building.name }}</a></div>
         </div>
         {% endfor %}
     {% else %}
