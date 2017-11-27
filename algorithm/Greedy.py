@@ -3,7 +3,7 @@ from scheduler import models
 from datetime import datetime, date, time, timedelta
 
 
-def test_function(midterm_start, midterm_end, final_start, final_end):
+def run_algorithm(midterm_start, midterm_end, final_start, final_end):
     # midterm_* and final_* vars are date objects
     # example: midterm_start is an date object
     ta_list = models.TA.objects.all()
@@ -20,8 +20,8 @@ def test_function(midterm_start, midterm_end, final_start, final_end):
             # sched.start_time as a datetime object
             pass
 
-    # Save to DB
-    dbq = models.TAExam()
-    dbq.classroom_id = 1
-    dbq.exam_id = 2
-    dbq.save()
+    # # Save to DB
+    # dbq = models.TAExam()
+    # dbq.classroom_id = 1
+    # dbq.exam_id = 2
+    # dbq.save()

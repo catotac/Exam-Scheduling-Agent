@@ -11,6 +11,8 @@ from datagen import Scheduler as sgen
 from .models import *
 from .forms import DatagenForm, ExamgenForm
 
+from algorithm import Greedy
+
 
 def index(request):
     # Query model (Show TA-Exam Relation)
@@ -300,6 +302,12 @@ def assign_ta(request):
             #
             # The algorithms should be called here #
             #
+
+            # Call Rahul's algorithm
+            Greedy.run_algorithm(form.cleaned_data['midterm_start_date'],
+                                 form.cleaned_data['midterm_end_date'],
+                                 form.cleaned_data['final_start_date'],
+                                 form.cleaned_data['final_end_date'])
 
             # Redirect to the home page:
             return HttpResponseRedirect('/')
