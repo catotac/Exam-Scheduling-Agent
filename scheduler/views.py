@@ -9,7 +9,7 @@ import coms572_final.settings as settings
 from datagen import Scheduler as sgen
 
 from .models import *
-from .forms import DatagenForm
+from .forms import DatagenForm, ExamgenForm
 
 
 def index(request):
@@ -285,7 +285,27 @@ def truncate_db(request):
 
 
 def assign_ta(request):
-    # The algorithms should be called here
+    # If this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # Create a form instance and populate it with data from the request
+        form = ExamgenForm(request.POST)
+        # Check if the form is valid:
+        if form.is_valid():
+            # INFO: Date objects corresponding to the user input are:
+            #   form.cleaned_data['midterm_start_date']
+            #   form.cleaned_data['midterm_end_date']
+            #   form.cleaned_data['final_start_date']
+            #   form.cleaned_data['final_end_date']
 
-    # Redirect to home page
-    return HttpResponseRedirect('/')
+            #
+            # The algorithms should be called here #
+            #
+
+            # Redirect to the home page:
+            return HttpResponseRedirect('/')
+
+    # If a GET (or any other method) we'll create a blank form
+    else:
+        form = ExamgenForm()
+
+    return render(request, 'examgen.html', {'form': form})

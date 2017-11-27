@@ -55,3 +55,25 @@ class DatagenForm(forms.Form):
                                            input_formats=['%Y-%m-%d'])
     ta_schedule_min = forms.IntegerField(label='Min Duration', initial=60)
     ta_schedule_max = forms.IntegerField(label='Max Duration', initial=180)
+
+
+class ExamgenForm(forms.Form):
+    # Midterm schedule
+    midterm_start_date = forms.DateField(label='Midterm Schedule Start Date',
+                                         initial=datetime.now().date(),
+                                         widget=forms.widgets.DateInput(format='%Y-%m-%d'),
+                                         input_formats=['%Y-%m-%d'])
+    midterm_end_date = forms.DateField(label='Midterm Schedule End Date',
+                                       initial=datetime.now().date() + timedelta(weeks=2),
+                                       widget=forms.widgets.DateInput(format='%Y-%m-%d'),
+                                       input_formats=['%Y-%m-%d'])
+
+    # Final schedule
+    final_start_date = forms.DateTimeField(label='Final Schedule Start Date',
+                                           initial=datetime.now().date() + timedelta(weeks=8),
+                                           widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
+                                           input_formats=['%Y-%m-%d'])
+    final_end_date = forms.DateTimeField(label='Final Schedule End Date',
+                                         initial=datetime.now().date() + timedelta(weeks=10),
+                                         widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
+                                         input_formats=['%Y-%m-%d'])
