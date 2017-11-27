@@ -15,7 +15,7 @@ class DatagenForm(forms.Form):
     classroom_capacity_max = forms.IntegerField(label='Max Room Capacity', initial=250)
     classroom_ta_max = forms.IntegerField(label='Maximum TA Allocation', initial=3)
     classroom_num_schedules = forms.IntegerField(label='Number of MIDTERM SCHEDULES for each CL', initial=5)
-    classroom_schedule_min_time = forms.DateField(label='Midterm Schedule Start Date/Time',
+    classroom_schedule_min_time = forms.DateField(label='Midterm Schedule Start Date',
                                                   initial=datetime.now().date(),
                                                   widget=forms.widgets.DateInput(format='%Y-%m-%d'),
                                                   input_formats=['%Y-%m-%d'])
@@ -44,15 +44,14 @@ class DatagenForm(forms.Form):
 
     # TAs
     ta_instances = forms.IntegerField(label='Number of TAs', initial=10)
-    ta_num_schedules = forms.IntegerField(label='Number of SCHEDULES for each TA', initial=10)
-    ta_schedule_min_time = forms.DateField(label='Schedule Start Date',
+    ta_num_schedules = forms.IntegerField(label='Number of SCHEDULES for each TA', initial=25)
+    ta_schedule_min_time = forms.DateField(label='TA Schedule Start Date',
                                            initial=datetime.now().date(),
                                            widget=forms.widgets.DateInput(format='%Y-%m-%d'),
                                            input_formats=['%Y-%m-%d'])
-    ta_schedule_max_time = forms.DateField(label='Schedule End Date/Time',
+    ta_schedule_max_time = forms.DateField(label='TA Schedule End Date/Time',
                                            initial=datetime.now().date() + timedelta(weeks=10),
                                            widget=forms.widgets.DateInput(format='%Y-%m-%d'),
                                            input_formats=['%Y-%m-%d'])
     ta_schedule_min = forms.IntegerField(label='Min Duration', initial=60)
     ta_schedule_max = forms.IntegerField(label='Max Duration', initial=180)
-# %I:%M %p
