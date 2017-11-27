@@ -238,27 +238,27 @@ def generate_data(request):
                 db_input.building_id = obj['building_id']
                 db_input.save()
 
-            # TA schedule should start from 9:00 AM and end at 9:00 PM
-            ta_schedule_start = datetime.now(timezone(settings.TIME_ZONE))
-            ta_schedule_start = ta_schedule_start.replace(hour=9, minute=0, second=0)
-            ta_schedule_end = ta_schedule_start + timedelta(hours=12)
-
-            ta_schedgen = sgen.ScheduleGenerator(len(obj_tas),
-                                                 form.cleaned_data['ta_num_schedules'],
-                                                 form.cleaned_data['ta_schedule_min_time'],
-                                                 form.cleaned_data['ta_schedule_max_time'],
-                                                 form.cleaned_data['ta_schedule_min'],
-                                                 form.cleaned_data['ta_schedule_max'])
-            obj_ta_scheds = ta_schedgen.generate(ta_schedule_start, ta_schedule_end)
-
-            # Save object to the database
-            for obj in obj_ta_scheds:
-                db_input = TASchedule()
-                db_input.id = obj['id']
-                db_input.start_time = obj['start_time']
-                db_input.end_time = obj['end_time']
-                db_input.ta_id = obj['parent_id']
-                db_input.save()
+            # # TA schedule should start from 9:00 AM and end at 9:00 PM
+            # ta_schedule_start = datetime.now(timezone(settings.TIME_ZONE))
+            # ta_schedule_start = ta_schedule_start.replace(hour=9, minute=0, second=0)
+            # ta_schedule_end = ta_schedule_start + timedelta(hours=12)
+            #
+            # ta_schedgen = sgen.ScheduleGenerator(len(obj_tas),
+            #                                      form.cleaned_data['ta_num_schedules'],
+            #                                      form.cleaned_data['ta_schedule_min_time'],
+            #                                      form.cleaned_data['ta_schedule_max_time'],
+            #                                      form.cleaned_data['ta_schedule_min'],
+            #                                      form.cleaned_data['ta_schedule_max'])
+            # obj_ta_scheds = ta_schedgen.generate(ta_schedule_start, ta_schedule_end)
+            #
+            # # Save object to the database
+            # for obj in obj_ta_scheds:
+            #     db_input = TASchedule()
+            #     db_input.id = obj['id']
+            #     db_input.start_time = obj['start_time']
+            #     db_input.end_time = obj['end_time']
+            #     db_input.ta_id = obj['parent_id']
+            #     db_input.save()
 
             # redirect to the home page:
             return HttpResponseRedirect('/')
