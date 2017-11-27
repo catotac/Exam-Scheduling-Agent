@@ -26,11 +26,11 @@ class DatagenForm(forms.Form):
     classroom_schedule_min = forms.IntegerField(label='Min Duration', initial=60)
     classroom_schedule_max = forms.IntegerField(label='Max Duration', initial=180)
     classroom_num_schedules_final = forms.IntegerField(label='Number of FINAL SCHEDULES for each CL', initial=5)
-    classroom_schedule_min_time_final = forms.DateTimeField(label='Final Schedule Start Date',
+    classroom_schedule_min_time_final = forms.DateField(label='Final Schedule Start Date',
                                                             initial=datetime.now().date() + timedelta(weeks=8),
                                                             widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
                                                             input_formats=['%Y-%m-%d'])
-    classroom_schedule_max_time_final = forms.DateTimeField(label='Final Schedule End Date',
+    classroom_schedule_max_time_final = forms.DateField(label='Final Schedule End Date',
                                                             initial=datetime.now().date() + timedelta(weeks=10),
                                                             widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
                                                             input_formats=['%Y-%m-%d'])
@@ -69,11 +69,11 @@ class ExamgenForm(forms.Form):
                                        input_formats=['%Y-%m-%d'])
 
     # Final schedule
-    final_start_date = forms.DateTimeField(label='Final Schedule Start Date',
+    final_start_date = forms.DateField(label='Final Schedule Start Date',
                                            initial=datetime.now().date() + timedelta(weeks=8),
                                            widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
                                            input_formats=['%Y-%m-%d'])
-    final_end_date = forms.DateTimeField(label='Final Schedule End Date',
+    final_end_date = forms.DateField(label='Final Schedule End Date',
                                          initial=datetime.now().date() + timedelta(weeks=10),
                                          widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
                                          input_formats=['%Y-%m-%d'])
