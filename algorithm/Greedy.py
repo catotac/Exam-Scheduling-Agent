@@ -25,11 +25,11 @@ def run_algorithm(midterm_start, midterm_end, final_start, final_end):
     delta = final_end - final_start  # timedelta
     for i in range(delta.days + 1):
         finaldays.append(final_start + timedelta(days=i))
+    ta_examlist = []
     for typ in types:
         exam_schedule = []
         listofschedules = []
         counter = 0
-        ta_examlist = []
         if typ is 'MIDTERM':
             examdays = midtermdays
         else:
@@ -42,30 +42,38 @@ def run_algorithm(midterm_start, midterm_end, final_start, final_end):
             day = random.choice(examdays)
             startTime = random.choice(timeslots)
             listofclassrooms = assignclassroom(maxClass, classroom_list, day, startTime, listofschedules)
-            listoftas = assignTAs(maxClass, ta_list, listofclassrooms, counter, day, startTime, listofschedules, ta_examlist)
+            start_time = datetime.combine(day, startTime)
+            start_time = start_time.replace(tzinfo=timezone(settings.TIME_ZONE))
+            end_time = datetime.combine(day, startTime) + timedelta(hours=2)
+            end_time = end_time.replace(tzinfo=timezone(settings.TIME_ZONE))
+            dbq = models.Exam()
+            dbq.start_time = start_time
+            dbq.end_time = end_time
+            dbq.type = typ
+            dbq.course_id = maxClass.id
+            # print(examtype['course_id'])
+            dbq.save()
+            exam_list = models.Exam.objects.all()
+            examID = gettheexamID(exam_list, maxClass.id, typ)
+            listoftas = assignTAs(maxClass, ta_list, listofclassrooms, examID, day, startTime, listofschedules, ta_examlist)
             temp = {'id': counter,
                     'startTime': startTime,
                     'day':day,
                     'classroomlist':listofclassrooms,
                     'talist':listoftas
                     }
-            start_time = datetime.combine(day, startTime)
-            start_time = start_time.replace(tzinfo=timezone(settings.TIME_ZONE))
-            end_time = datetime.combine(day, startTime) + timedelta(hours=2)
-            end_time = end_time.replace(tzinfo=timezone(settings.TIME_ZONE))
-
-            temp1 = {'start_time': start_time,
-                     'end_time':end_time,
-                     'type':typ,
-                     'course_id':maxClass.id
-                     }
+            # temp1 = {'start_time': start_time,
+            #          'end_time':end_time,
+            #          'type':typ,
+            #          'course_id':maxClass.id
+            #          }
             #print(temp1)
-            exam_schedule.append(temp1)
+            #exam_schedule.append(temp1)
             listofschedules.append(temp)
             course_list.remove(maxClass)
             counter = counter + 1
-        saveexamtypetodatabase(exam_schedule)
     saveTAexamtodatabase(ta_examlist)
+
 
 
 
@@ -194,6 +202,12 @@ def saveTAexamtodatabase(taexamlist):
         dbq.exam_id = taexamtype['exam_id']
         dbq.ta_id = taexamtype['ta_id']
         dbq.save()
+
+
+def gettheexamID(examlist, id, typ):
+    for exams in examlist:
+        if id == exams.course_id and typ == exams.type:
+            return exams.id
 
 
 def perdelta(start, end, delta):
