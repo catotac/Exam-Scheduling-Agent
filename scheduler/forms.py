@@ -57,7 +57,7 @@ class DatagenForm(forms.Form):
     ta_schedule_max = forms.IntegerField(label='Max Duration', initial=180)
 
 
-class ExamgenForm(forms.Form):
+class TAAssignMainForm(forms.Form):
     # Midterm schedule
     midterm_start_date = forms.DateField(label='Midterm Schedule Start Date',
                                          initial=datetime.now().date(),
@@ -77,3 +77,32 @@ class ExamgenForm(forms.Form):
                                      initial=datetime.now().date() + timedelta(weeks=10),
                                      widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
                                      input_formats=['%Y-%m-%d'])
+
+    # Initial temperature for Simulated Annealing
+    initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)
+
+
+class RahulForm(forms.Form):
+    # Midterm schedule
+    midterm_start_date = forms.DateField(label='Midterm Schedule Start Date',
+                                         initial=datetime.now().date(),
+                                         widget=forms.widgets.DateInput(format='%Y-%m-%d'),
+                                         input_formats=['%Y-%m-%d'])
+    midterm_end_date = forms.DateField(label='Midterm Schedule End Date',
+                                       initial=datetime.now().date() + timedelta(weeks=2),
+                                       widget=forms.widgets.DateInput(format='%Y-%m-%d'),
+                                       input_formats=['%Y-%m-%d'])
+
+    # Final schedule
+    final_start_date = forms.DateField(label='Final Schedule Start Date',
+                                       initial=datetime.now().date() + timedelta(weeks=8),
+                                       widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
+                                       input_formats=['%Y-%m-%d'])
+    final_end_date = forms.DateField(label='Final Schedule End Date',
+                                     initial=datetime.now().date() + timedelta(weeks=10),
+                                     widget=forms.widgets.DateTimeInput(format='%Y-%m-%d'),
+                                     input_formats=['%Y-%m-%d'])
+
+
+class LeiForm(forms.Form):
+    initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)

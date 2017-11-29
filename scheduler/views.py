@@ -9,9 +9,9 @@ import coms572_final.settings as settings
 from datagen import Scheduler as sgen
 
 from .models import *
-from .forms import DatagenForm, ExamgenForm
+from .forms import DatagenForm, TAAssignMainForm, RahulForm, LeiForm
 
-from algorithm import Greedy
+from algorithm import Greedy, SA
 
 
 def index(request):
@@ -195,31 +195,31 @@ def generate_data(request):
                                                         form.cleaned_data['classroom_schedule_max'])
             obj_cl_scheds = classroom_schedgen.generate()
 
-            # Save object to the database
-            for obj in obj_cl_scheds:
-                db_input = ClassroomSchedule()
-                db_input.id = obj['id']
-                db_input.start_time = obj['start_time']
-                db_input.end_time = obj['end_time']
-                db_input.classroom_id = obj['parent_id']
-                db_input.save()
-
-            classroom_schedgen_final = sgen.ScheduleGenerator(len(obj_classrooms),
-                                                              form.cleaned_data['classroom_num_schedules_final'],
-                                                              form.cleaned_data['classroom_schedule_min_time_final'],
-                                                              form.cleaned_data['classroom_schedule_max_time_final'],
-                                                              form.cleaned_data['classroom_schedule_min_final'],
-                                                              form.cleaned_data['classroom_schedule_max_final'])
-            obj_cl_scheds_final = classroom_schedgen_final.generate(cl_schedule_start, cl_schedule_end)
-
-            # Save object to the database
-            for obj in obj_cl_scheds_final:
-                db_input = ClassroomSchedule()
-                db_input.id = obj['id']
-                db_input.start_time = obj['start_time']
-                db_input.end_time = obj['end_time']
-                db_input.classroom_id = obj['parent_id']
-                db_input.save()
+            # # Save object to the database
+            # for obj in obj_cl_scheds:
+            #     db_input = ClassroomSchedule()
+            #     db_input.id = obj['id']
+            #     db_input.start_time = obj['start_time']
+            #     db_input.end_time = obj['end_time']
+            #     db_input.classroom_id = obj['parent_id']
+            #     db_input.save()
+            #
+            # classroom_schedgen_final = sgen.ScheduleGenerator(len(obj_classrooms),
+            #                                                   form.cleaned_data['classroom_num_schedules_final'],
+            #                                                   form.cleaned_data['classroom_schedule_min_time_final'],
+            #                                                   form.cleaned_data['classroom_schedule_max_time_final'],
+            #                                                   form.cleaned_data['classroom_schedule_min_final'],
+            #                                                   form.cleaned_data['classroom_schedule_max_final'])
+            # obj_cl_scheds_final = classroom_schedgen_final.generate(cl_schedule_start, cl_schedule_end)
+            #
+            # # Save object to the database
+            # for obj in obj_cl_scheds_final:
+            #     db_input = ClassroomSchedule()
+            #     db_input.id = obj['id']
+            #     db_input.start_time = obj['start_time']
+            #     db_input.end_time = obj['end_time']
+            #     db_input.classroom_id = obj['parent_id']
+            #     db_input.save()
 
             # Generate courses
             course_gen = sgen.CourseGenerator(obj_buildings,
@@ -302,7 +302,7 @@ def assign_ta(request):
     # If this is a POST request we need to process the form data
     if request.method == 'POST':
         # Create a form instance and populate it with data from the request
-        form = ExamgenForm(request.POST)
+        form = TAAssignMainForm(request.POST)
         # Check if the form is valid:
         if form.is_valid():
             # INFO: Date objects corresponding to the user input are:
@@ -321,11 +321,57 @@ def assign_ta(request):
                                  form.cleaned_data['final_start_date'],
                                  form.cleaned_data['final_end_date'])
 
+            # Call Lei's algorithm
+            SA.run_algorithm(form.cleaned_data['initial_temp'])
+
             # Redirect to the home page:
             return HttpResponseRedirect('/')
 
     # If a GET (or any other method) we'll create a blank form
     else:
-        form = ExamgenForm()
+        form = TAAssignMainForm()
 
-    return render(request, 'examgen.html', {'form': form})
+    return render(request, 'ta_assign.html', {'form': form})
+
+
+def assign_ta_step1(request):
+    # If this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # Create a form instance and populate it with data from the request
+        form = RahulForm(request.POST)
+        # Check if the form is valid:
+        if form.is_valid():
+            # Call Rahul's algorithm
+            Greedy.run_algorithm(form.cleaned_data['midterm_start_date'],
+                                 form.cleaned_data['midterm_end_date'],
+                                 form.cleaned_data['final_start_date'],
+                                 form.cleaned_data['final_end_date'])
+
+            # Redirect to the home page:
+            return HttpResponseRedirect('/')
+
+    # If a GET (or any other method) we'll create a blank form
+    else:
+        form = RahulForm()
+
+    return render(request, 'ta_assign_s1.html', {'form': form})
+
+
+def assign_ta_step2(request):
+    # If this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # Create a form instance and populate it with data from the request
+        form = LeiForm(request.POST)
+        # Check if the form is valid:
+        if form.is_valid():
+            # Call Lei's algorithm
+            SA.run_algorithm(form.cleaned_data['initial_temp'])
+
+            # Redirect to the home page:
+            return HttpResponseRedirect('/')
+
+    # If a GET (or any other method) we'll create a blank form
+    else:
+        form = LeiForm()
+
+    return render(request, 'ta_assign_s2.html', {'form': form})

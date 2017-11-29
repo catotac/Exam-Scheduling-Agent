@@ -1,0 +1,17 @@
+{% extends 'bootstrap.html' %}
+
+{% block content %}
+<form action="/assign_step1/" method="post">
+    <h2>Select Midterm/Final Date Intervals</h2>
+    {% csrf_token %}
+    <table class="table">
+    {{ form.as_table }}
+    <tr>
+        <th></th>
+        <td class="text-right">
+            <button type="submit" class="btn btn-success">Start TA Assignment Step 1</button>
+        </td>
+    </tr>
+    </table>
+</form>
+{% endblock %}

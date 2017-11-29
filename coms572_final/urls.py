@@ -34,4 +34,6 @@ urlpatterns = [
     url(r'^datagen/$', views.generate_data),
     url(r'^restart/$', views.truncate_db),
     url(r'^assign/$', views.assign_ta),
+    url(r'^assign_step1/$', views.assign_ta_step1),
+    url(r'^assign_step2/$', views.assign_ta_step2),
 ]
