@@ -11,25 +11,28 @@
         {% for obj in ta_exam %}
         <div class="row">
             <div class="col"><a href="/tas/{{ obj.ta_id }}">{{ obj.ta.last_name }}, {{ obj.ta.first_name }}</a></div>
-            <div class="col"><a href="/exams/{{ obj.exam_id }}">{{ obj.exam.get_type_display }}</a> for {{ obj.exam.course.code }}</div>
+            <div class="col"><a href="/exams/{{ obj.exam_id }}">{{ obj.exam.get_type_display }}</a> for <a href="/courses/{{ obj.exam.course_id }}">{{ obj.exam.course.code }}</a></div>
             <div class="col"><a href="/classrooms/{{ obj.classroom_id }}">{{ obj.classroom.name }}</a></div>
         </div>
         {% endfor %}
     {% else %}
     <p class="lead">No TAs are assigned to exams. Would you like to assign them now?</p>
     {% endif %}
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-primary" href="/assign">Assign TAs to Exams</a>
-        </div>
-        <div class="col">
-            <a class="btn btn-danger" href="/restart">Delete All Data!</a>
-        </div>
-        <div class="col">
-            <a class="btn btn-warning" href="/datagen">Generate Random Data</a>
-        </div>
-        <div class="col">
-            <a class="btn btn-secondary" href="/admin">Go to Admin Panel</a>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary" href="/assign">Assign TAs to Exams</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-danger" href="/restart">Delete All Data!</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-warning" href="/datagen">Generate Random Data</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-secondary" href="/admin">Go to Admin Panel</a>
+            </div>
         </div>
     </div>
 {% endblock %}

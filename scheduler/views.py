@@ -75,6 +75,18 @@ def courses(request):
     return render(request, 'courses/index.html', context)
 
 
+def course(request, obj_id):
+    try:
+        current_course = Course.objects.get(pk=obj_id)
+    except Course.DoesNotExist:
+        raise Http404("The course requested does not exist!")
+    ta_list = TACourse.objects.all().filter(course=current_course)
+
+    # Create context to render
+    context = {'course': current_course, 'ta_list': ta_list}
+    return render(request, 'courses/detail.html', context)
+
+
 def exams(request):
     # Query model
     obj_list = Exam.objects.all()
@@ -115,7 +127,7 @@ def ta(request, obj_id):
     ta_exam = TAExam.objects.all().filter(ta=current_ta)
 
     # Create context to render
-    context = {'ta': current_ta, 'schedule_list': ta_schedule, 'course_list': ta_course, 'exam_list': ta_exam}
+    context = {'ta': current_ta, 'schedule_list': ta_schedule, 'course_list': ta_course, 'ta_exam_list': ta_exam}
     return render(request, 'tas/detail.html', context)
 
 

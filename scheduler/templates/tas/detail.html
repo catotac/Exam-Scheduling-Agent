@@ -2,6 +2,7 @@
 
 {% block content %}
     <h2>{{ ta.last_name }}, {{ ta.first_name }} Schedule</h2>
+    {% comment %}
     {% if schedule_list %}
     <h3>TA Schedule</h3>
     <div class="row">
@@ -18,6 +19,7 @@
     <p class="lead">No schedule to show!</p>
     {% endif %}
     <hr>
+    {% endcomment %}
     {% if course_list %}
     <h3>Head TA Courses</h3>
     <ul>
@@ -29,16 +31,16 @@
     <p class="lead">TA has no head TA assignments!</p>
     {% endif %}
     <hr>
-    {% if exam_list %}
+    {% if ta_exam_list %}
     <h3>Assigned Exams</h3>
     <div class="row">
         <div class="col"><strong>Exam Course</strong></div>
         <div class="col"><strong>Exam Type</strong></div>
     </div>
-        {% for exam in exam_list %}
+        {% for obj in ta_exam_list %}
         <div class="row">
-            <div class="col">{{ exam.course.code }}</div>
-            <div class="col">{{ exam.type }}</div>
+            <div class="col"><a href="/courses/{{ obj.exam.course_id }}">{{ obj.exam.course.code }}</a></div>
+            <div class="col"><a href="/exams/{{ obj.exam_id }}">{{ obj.exam.get_type_display }}</a></div>
         </div>
         {% endfor %}
     {% else %}

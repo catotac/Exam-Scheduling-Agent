@@ -1,0 +1,20 @@
+{% extends 'bootstrap.html' %}
+
+{% block content %}
+    <h2>{{ course.code }}</h2>
+    {% if ta_list %}
+    <h3>Head TAs</h3>
+    <div class="row">
+        <div class="col"><strong>TA Name</strong></div>
+        <div class="col"><strong>TA Office Building</strong></div>
+    </div>
+        {% for ta in ta_list %}
+        <div class="row">
+            <div class="col"><a href="/tas/{{ ta.ta_id }}">{{ ta.ta.last_name }}, {{ ta.ta.first_name }}</a></div>
+            <div class="col"><a href="/buildings/{{ ta.ta.building.id }}">{{ ta.ta.building.name }}</a></div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p class="lead">No head TAs assigned to this course!</p>
+    {% endif %}
+{% endblock %}

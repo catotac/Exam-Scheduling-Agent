@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^classrooms/$', views.classrooms, name='classrooms'),
     url(r'^classrooms/(?P<obj_id>[0-9]+)$', views.classroom),
     url(r'^courses/$', views.courses, name='courses'),
+    url(r'^courses/(?P<obj_id>[0-9]+)$', views.course),
     url(r'^exams/$', views.exams, name='exams'),
     url(r'^exams/(?P<obj_id>[0-9]+)$', views.exam),
     url(r'^tas/$', views.tas, name='tas'),
