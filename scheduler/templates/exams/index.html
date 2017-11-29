@@ -11,7 +11,7 @@
     </div>
         {% for obj in obj_list %}
         <div class="row">
-            <div class="col">{{ obj.course }}</div>
+            <div class="col">{{ obj.course.code }}</div>
             <div class="col">{{ obj.start_time }}</div>
             <div class="col">{{ obj.end_time }}</div>
             <div class="col">{{ obj.type }}</div>

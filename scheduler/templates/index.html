@@ -10,8 +10,8 @@
     </div>
         {% for obj in ta_exam %}
         <div class="row">
-            <div class="col"><a hre="/tas/{{ obj.ta_id }}">{{ obj.ta.last_name }}, {{ obj.ta.first_name }}</a></div>
-            <div class="col"><a href="exams/{{ obj.exam_id }}">{{ obj.exam.type }}</a> for {{ obj.exam.course.code }}</div>
+            <div class="col"><a href="/tas/{{ obj.ta_id }}">{{ obj.ta.last_name }}, {{ obj.ta.first_name }}</a></div>
+            <div class="col"><a href="/exams/{{ obj.exam_id }}">{{ obj.exam.type.get_user_choices_display }}</a> for {{ obj.exam.course.code }}</div>
             <div class="col"><a href="/classrooms/{{ obj.classroom_id }}">{{ obj.classroom.name }}</a></div>
         </div>
         {% endfor %}
