@@ -2,6 +2,7 @@
 
 {% block content %}
     <h2>{{ course.code }}</h2>
+    {% comment %}
     {% if ta_list %}
     <h3>Head TAs</h3>
     <div class="row">
@@ -17,4 +18,5 @@
     {% else %}
     <p class="lead">No head TAs assigned to this course!</p>
     {% endif %}
+    {% endcomment %}
 {% endblock %}
