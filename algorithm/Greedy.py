@@ -29,6 +29,7 @@ def run_algorithm(midterm_start, midterm_end, final_start, final_end):
     for typ in types:
         exam_schedule = []
         listofschedules = []
+        temp_talist = []
         counter = 0
         if typ is 'MIDTERM':
             examdays = midtermdays
@@ -55,7 +56,7 @@ def run_algorithm(midterm_start, midterm_end, final_start, final_end):
             dbq.save()
             exam_list = models.Exam.objects.all()
             examID = gettheexamID(exam_list, maxClass.id, typ)
-            listoftas = assignTAs(maxClass, ta_list, listofclassrooms, examID, day, startTime, listofschedules, ta_examlist)
+            listoftas = assignTAs(maxClass, ta_list, listofclassrooms, examID, day, startTime, listofschedules, ta_examlist, temp_talist)
             temp = {'id': counter,
                     'startTime': startTime,
                     'day':day,
@@ -77,7 +78,7 @@ def run_algorithm(midterm_start, midterm_end, final_start, final_end):
 
 
 
-def assignTAs(coursenum, taslist_old, classroom_list_old, counter, day, startTime, listofschedules_old, ta_examlist):
+def assignTAs(coursenum, taslist_old, classroom_list_old, counter, day, startTime, listofschedules_old, ta_examlist, temp_talist):
     classroom_list = classroom_list_old[:]
     listofschedules = listofschedules_old[:]
     course = copy.copy(coursenum)
@@ -105,17 +106,24 @@ def assignTAs(coursenum, taslist_old, classroom_list_old, counter, day, startTim
         classroom = roomsinsamebuilding[counter_room]
         ta = tasinsamebuilding[counter_ta]
         if availofTA(ta, day, startTime, listofschedules):
-            temp = {'classroom_id':classroom.id,
-                    'exam_id':counter,
-                    'ta_id':ta.id
-                    }
-            ta_examlist.append(temp)
-            retlist.append(ta)
-            roomsinsamebuilding.remove(classroom)
-        #    counter_room = counter_room + 1
-            counter_ta = counter_ta + 1
+            if(temp_talist.__contains__(ta)):
+                counter_ta = counter_ta + 1
+                continue
+            else:
+                temp = {'classroom_id':classroom.id,
+                        'exam_id':counter,
+                        'ta_id':ta.id
+                        }
+                ta_examlist.append(temp)
+                retlist.append(ta)
+                roomsinsamebuilding.remove(classroom)
+        #       counter_room = counter_room + 1
+                temp_talist.append(ta)
+                counter_ta = counter_ta + 1
         else:
             counter_ta = counter_ta + 1
+        if len(tasinsamebuilding) == counter_ta:
+            temp_talist.clear()
     #print(course)
     #print("HERE I AM in TA")
     #print(ta_examlist)
