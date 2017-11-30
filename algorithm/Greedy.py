@@ -106,8 +106,9 @@ def assignTAs(coursenum, taslist_old, classroom_list_old, counter, day, startTim
     counter_ta = 0
     counter_room = 0
     while(len(roomsinsamebuilding) > 0):
-        if len(tasinsamebuilding) - 1 == counter_ta:
+        if (len(tasinsamebuilding) - 1) == counter_ta:
             temp_talist.clear()
+            counter_ta = 0
         classroom = roomsinsamebuilding[counter_room]
         ta = tasinsamebuilding[counter_ta]
         if availofTA(ta, day, startTime, listofschedules):
