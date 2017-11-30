@@ -1,6 +1,9 @@
+from django.utils import timezone
+
 import random
 from datetime import datetime, timedelta
-from pytz import timezone
+from pytz import timezone as tz
+
 import coms572_final.settings as settings
 
 
@@ -112,7 +115,7 @@ class ScheduleGenerator(object):
         self._min_duration = min_duration
         self._max_duration = max_duration
 
-    def generate(self, min_time=datetime.now(timezone(settings.TIME_ZONE)), max_time=datetime.now(timezone(settings.TIME_ZONE)) + timedelta(hours=8)):
+    def generate(self, min_time=timezone.now(), max_time=timezone.now() + timedelta(hours=8)):
         retlist = []
 
         if self._min_date and self._max_date:
@@ -123,7 +126,7 @@ class ScheduleGenerator(object):
                     ti = random.randint(int(min_time.timestamp()), int(max_time.timestamp()))
                     t = datetime.fromtimestamp(ti)
                     start_date = datetime(year=d.year, month=d.month, day=d.day)
-                    start_date = start_date.replace(hour=t.hour, minute=t.minute, second=t.second, tzinfo=timezone(settings.TIME_ZONE))
+                    start_date = start_date.replace(hour=t.hour, minute=t.minute, second=t.second, tzinfo=tz(settings.TIME_ZONE))
                     temp = {'id': counter,
                             'start_time': start_date,
                             'end_time': start_date + timedelta(minutes=random.randint(self._min_duration, self._max_duration)),

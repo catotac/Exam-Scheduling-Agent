@@ -2,8 +2,7 @@ from scheduler import models
 
 import random
 import copy
-from datetime import date, datetime, time, timedelta
-from pytz import timezone
+from datetime import datetime, time, timedelta
 
 import coms572_final.settings as settings
 
@@ -16,7 +15,7 @@ def run_algorithm(midterm_start, midterm_end, final_start, final_end):
     classroom_list = models.Classroom.objects.all()
     course_list_orig = list(models.Course.objects.all())
     types = ['MIDTERM', 'FINAL']
-    timeslots = [time(i, 0, tzinfo=timezone(settings.TIME_ZONE)) for i in range(time(8, 0, tzinfo=timezone(settings.TIME_ZONE)).hour, time(17, 0, tzinfo=timezone(settings.TIME_ZONE)).hour + 1)]
+    timeslots = [time(i, 0) for i in range(time(8, 0).hour, time(17, 0).hour + 1)]
    # timeslots = [time(i, 0) for i in range(time(8, 0).hour, time(17, 0).hour + 1)]
     midtermdays = []
     finaldays = []
