@@ -16,7 +16,8 @@ def run_algorithm(midterm_start, midterm_end, final_start, final_end):
     classroom_list = models.Classroom.objects.all()
     course_list_orig = list(models.Course.objects.all())
     types = ['MIDTERM', 'FINAL']
-    timeslots = [time(i, 0) for i in range(time(8, 0).hour, time(17, 0).hour + 1)]
+    timeslots = [time(i, 0, tzinfo=timezone(settings.TIME_ZONE)) for i in range(time(8, 0, tzinfo=timezone(settings.TIME_ZONE)).hour, time(17, 0, tzinfo=timezone(settings.TIME_ZONE)).hour + 1)]
+   # timeslots = [time(i, 0) for i in range(time(8, 0).hour, time(17, 0).hour + 1)]
     midtermdays = []
     finaldays = []
     delta = midterm_end - midterm_start  # timedelta
@@ -44,9 +45,11 @@ def run_algorithm(midterm_start, midterm_end, final_start, final_end):
             startTime = random.choice(timeslots)
             listofclassrooms = assignclassroom(maxClass, classroom_list, day, startTime, listofschedules)
             start_time = datetime.combine(day, startTime)
-            start_time = start_time.replace(tzinfo=timezone(settings.TIME_ZONE))
+           # start_time = start_time.replace(tzinfo=timezone(settings.TIME_ZONE))
+      #      start_time.strftime('%Y-%m-%d %H:%M:%S')
             end_time = datetime.combine(day, startTime) + timedelta(hours=2)
-            end_time = end_time.replace(tzinfo=timezone(settings.TIME_ZONE))
+            #end_time = end_time.replace(tzinfo=timezone(settings.TIME_ZONE))
+       #     end_time.strftime('%Y-%m-%d %H:%M:%S')
             dbq = models.Exam()
             dbq.start_time = start_time
             dbq.end_time = end_time
@@ -103,6 +106,8 @@ def assignTAs(coursenum, taslist_old, classroom_list_old, counter, day, startTim
     counter_ta = 0
     counter_room = 0
     while(len(roomsinsamebuilding) > 0):
+        if len(tasinsamebuilding) - 1 == counter_ta:
+            temp_talist.clear()
         classroom = roomsinsamebuilding[counter_room]
         ta = tasinsamebuilding[counter_ta]
         if availofTA(ta, day, startTime, listofschedules):
@@ -122,8 +127,6 @@ def assignTAs(coursenum, taslist_old, classroom_list_old, counter, day, startTim
                 counter_ta = counter_ta + 1
         else:
             counter_ta = counter_ta + 1
-        if len(tasinsamebuilding) == counter_ta:
-            temp_talist.clear()
     #print(course)
     #print("HERE I AM in TA")
     #print(ta_examlist)
