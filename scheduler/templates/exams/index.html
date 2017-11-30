@@ -1,4 +1,5 @@
 {% extends 'bootstrap.html' %}
+{% load tz %}
 
 {% block content %}
     <h2>Exam List</h2>
@@ -12,8 +13,8 @@
         {% for obj in obj_list %}
         <div class="row">
             <div class="col">{{ obj.course.code }}</div>
-            <div class="col">{{ obj.start_time }}</div>
-            <div class="col">{{ obj.end_time }}</div>
+            <div class="col">{{ obj.start_time|localtime }}</div>
+            <div class="col">{{ obj.end_time|localtime }}</div>
             <div class="col">{{ obj.type }}</div>
         </div>
         {% endfor %}
