@@ -15,6 +15,8 @@
             <div class="col"><a href="/buildings/{{ obj.building_id }}">{{ obj.building.name }}</a></div>
         </div>
         {% endfor %}
+    <hr>
+    <p class="lead"><strong>Number of TAs:</strong> {{ obj_list|length }}</p>
     {% else %}
     <p class="lead">No TAs to show!</p>
     {% endif %}

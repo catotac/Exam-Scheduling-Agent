@@ -18,6 +18,8 @@
             <div class="col">{{ obj.type }}</div>
         </div>
         {% endfor %}
+    <hr>
+    <p class="lead"><strong>Number of Exams:</strong> {{ obj_list|length }}</p>
     {% else %}
     <p class="lead">No exams to show!</p>
     {% endif %}

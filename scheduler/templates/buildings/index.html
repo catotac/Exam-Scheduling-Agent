@@ -13,6 +13,8 @@
             <div class="col">({{ obj.coord_x }}, {{ obj.coord_y }})</div>
         </div>
         {% endfor %}
+    <hr>
+    <p class="lead"><strong>Number of Buildings:</strong> {{ obj_list|length }}</p>
     {% else %}
     <p class="lead">No buildings to show!</p>
     {% endif %}

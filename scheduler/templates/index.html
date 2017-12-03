@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if ta_exam %}
-    <h2>TA Exam Assignment Results</h2>
+    <h2>TA Exam Assignment Results <small class="text-muted">with {{ ta_exam|length }} assignments</small></h2>
     <div class="row">
         <div class="col"><strong>Teaching Assistant</strong></div>
         <div class="col"><strong>Exam Course</strong></div>
