@@ -79,8 +79,8 @@ class TAAssignMainForm(forms.Form):
                                      input_formats=['%Y-%m-%d'])
 
     # Initial temperature for Simulated Annealing
-    initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)
-    nper = forms.IntegerField(label='"nper" value', initial=3)
+    sa_initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)
+    sa_nper = forms.IntegerField(label='"nper" value', initial=3)
 
 
 class GreedyAlgoForm(forms.Form):
