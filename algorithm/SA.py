@@ -6,8 +6,8 @@ import math
 
 
 def run_algorithm(initial_temp, nper):
-    mid_solution = simulated_annealing('MIDTERM', initial_temp)
-    final_solution = simulated_annealing('FINAL', initial_temp)
+    mid_solution = simulated_annealing('MIDTERM', initial_temp, nper)
+    final_solution = simulated_annealing('FINAL', initial_temp, nper)
     print('for midle term: '), print(mid_solution[0])
     print('for final term: '), print(final_solution[0])
     # print(len(mid_solution[1]))
@@ -38,13 +38,13 @@ def run_algorithm(initial_temp, nper):
     pass
 
 
-def simulated_annealing(exam_type, initial_temperature):
+def simulated_annealing(exam_type, initial_temperature, initial_nper):
     # initial temperature
     temperature = initial_temperature
     temperature0 = temperature
 
     # fixed nper
-    nper = 3
+    nper = initial_nper
 
     exam_schedule = models.TAExam.objects.all()
     midterm_dic = {}
