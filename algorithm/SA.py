@@ -42,6 +42,8 @@ def simulated_annealing(exam_type, initial_temperature, initial_nper):
     # initial temperature
     temperature = initial_temperature
     temperature0 = temperature
+    pre_defined_n_move = 5
+    final_temp = 1
 
     # fixed nper
     nper = initial_nper
@@ -193,7 +195,7 @@ def simulated_annealing(exam_type, initial_temperature, initial_nper):
         # print(temperature)
         # print(math.log(temperature0))
         # print(math.log(100))
-        alpha = 1 - (math.log(temperature0) - math.log(100)) / nper
+        alpha = 1 - (math.log(temperature0) - math.log(final_temp)) / pre_defined_n_move
         temperature = alpha * temperature
         # print(temperature)
         step_count = 1
