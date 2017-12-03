@@ -1,16 +1,11 @@
 from scheduler import models
 
-from datetime import date, datetime, time, timedelta
-from pytz import timezone
-import datetime
 import random
 import copy
 import math
 
-import coms572_final.settings as settings
 
-
-def run_algorithm(initial_temp):
+def run_algorithm(initial_temp, nper):
     mid_solution = simulated_annealing('MIDTERM', initial_temp)
     final_solution = simulated_annealing('FINAL', initial_temp)
     print('for midle term: '), print(mid_solution[0])

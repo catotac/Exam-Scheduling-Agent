@@ -80,9 +80,10 @@ class TAAssignMainForm(forms.Form):
 
     # Initial temperature for Simulated Annealing
     initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)
+    nper = forms.IntegerField(label='"nper" value', initial=3)
 
 
-class RahulForm(forms.Form):
+class GreedyAlgoForm(forms.Form):
     # Midterm schedule
     midterm_start_date = forms.DateField(label='Midterm Schedule Start Date',
                                          initial=datetime.now().date(),
@@ -104,5 +105,6 @@ class RahulForm(forms.Form):
                                      input_formats=['%Y-%m-%d'])
 
 
-class LeiForm(forms.Form):
-    initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)
+class SAAlgoForm(forms.Form):
+    sa_initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)
+    sa_nper = forms.IntegerField(label='"nper" value', initial=3)

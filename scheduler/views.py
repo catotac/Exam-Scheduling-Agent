@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from datagen import Scheduler as sgen
 
 from .models import *
-from .forms import DatagenForm, TAAssignMainForm, RahulForm, LeiForm
+from .forms import DatagenForm, TAAssignMainForm, GreedyAlgoForm, SAAlgoForm
 
 from algorithm import Greedy, SA
 
@@ -321,7 +321,7 @@ def assign_ta(request):
                                  form.cleaned_data['final_end_date'])
 
             # Call Lei's algorithm
-            SA.run_algorithm(form.cleaned_data['initial_temp'])
+            SA.run_algorithm(form.cleaned_data['sa_initial_temp'], form.cleaned_data['sa_nper'])
 
             # Redirect to the home page:
             return HttpResponseRedirect('/')
@@ -337,10 +337,10 @@ def assign_ta_step1(request):
     # If this is a POST request we need to process the form data
     if request.method == 'POST':
         # Create a form instance and populate it with data from the request
-        form = RahulForm(request.POST)
+        form = GreedyAlgoForm(request.POST)
         # Check if the form is valid:
         if form.is_valid():
-            # Call Rahul's algorithm
+            # Call greedy algorithm
             Greedy.run_algorithm(form.cleaned_data['midterm_start_date'],
                                  form.cleaned_data['midterm_end_date'],
                                  form.cleaned_data['final_start_date'],
@@ -351,7 +351,7 @@ def assign_ta_step1(request):
 
     # If a GET (or any other method) we'll create a blank form
     else:
-        form = RahulForm()
+        form = GreedyAlgoForm()
 
     return render(request, 'ta_assign_s1.html', {'form': form})
 
@@ -360,17 +360,17 @@ def assign_ta_step2(request):
     # If this is a POST request we need to process the form data
     if request.method == 'POST':
         # Create a form instance and populate it with data from the request
-        form = LeiForm(request.POST)
+        form = SAAlgoForm(request.POST)
         # Check if the form is valid:
         if form.is_valid():
-            # Call Lei's algorithm
-            SA.run_algorithm(form.cleaned_data['initial_temp'])
+            # Run simulated annealing algorithm
+            SA.run_algorithm(form.cleaned_data['sa_initial_temp'], form.cleaned_data['sa_nper'])
 
             # Redirect to the home page:
             return HttpResponseRedirect('/')
 
     # If a GET (or any other method) we'll create a blank form
     else:
-        form = LeiForm()
+        form = SAAlgoForm()
 
     return render(request, 'ta_assign_s2.html', {'form': form})
