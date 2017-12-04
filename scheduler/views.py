@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import Http404
+from time import time
 from django.utils import timezone
 
 from datetime import datetime, timedelta
@@ -364,7 +365,10 @@ def assign_ta_step2(request):
         # Check if the form is valid:
         if form.is_valid():
             # Run simulated annealing algorithm
+            start = time()
             SA.run_algorithm(form.cleaned_data['sa_initial_temp'], form.cleaned_data['sa_nper'])
+            stop = time()
+            print(str(stop - start) + " s")
 
             # Redirect to the home page:
             return HttpResponseRedirect('/')

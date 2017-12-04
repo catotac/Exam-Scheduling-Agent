@@ -42,7 +42,7 @@ def simulated_annealing(exam_type, initial_temperature, initial_nper):
     # initial temperature
     temperature = initial_temperature
     temperature0 = temperature
-    pre_defined_n_move = 5
+    pre_defined_n_move = 10
     final_temp = 1
 
     # fixed nper
@@ -132,7 +132,7 @@ def simulated_annealing(exam_type, initial_temperature, initial_nper):
 
             sigma = cost_new - cost_old
             check_exp = math.pow(math.e, - sigma/temperature) < random.uniform(0,1)
-            if((sigma <= 0) or check_exp):
+            if((sigma < 0)):
                 new_solution = new_solution_after
                 neighbor_copy = new_result[1]
                 index_dic = new_result[2]
@@ -172,7 +172,47 @@ def simulated_annealing(exam_type, initial_temperature, initial_nper):
                     count = count + 1
                 if(duplicate == False):
                     final_solution = new_solution_after
+            else:
+                if(check_exp):
+                    new_solution = new_solution_after
+                    neighbor_copy = new_result[1]
+                    index_dic = new_result[2]
+                    new_index_dic = {}
+                    new_index_dic_counter = 1
+                    for index_dic_entry in index_dic:
+                        element = index_dic[index_dic_entry]
+                        new_index_dic[new_index_dic_counter] = element
+                        new_index_dic_counter = new_index_dic_counter + 1
+                    index_dic = copy.deepcopy(new_index_dic)
 
+                    # check if the new solution is not valid because of the usage of the same classroom at the same time
+                    count = 1
+                    duplicate = False
+                    for i in new_solution:
+                        start_time = i.start_time
+                        existed_classroom = {}
+                        for j in new_solution.get(i):
+                            existed_classroom[j] = 1
+
+                        count_p = 1
+                        for i_p in new_solution:
+                            if (count_p <= count):
+                                count_p = count_p + 1
+                                continue
+                            start_time_p = i_p.start_time
+                            if (start_time == start_time_p):
+                                for j_p in new_solution.get(i_p):
+                                    if (j_p in existed_classroom.keys()):
+                                        duplicate = True
+                                        break
+                                if (duplicate):
+                                    break
+                            count_p = count_p + 1
+                        if (duplicate):
+                            break
+                        count = count + 1
+                    if (duplicate == False):
+                        final_solution = new_solution_after
              # print
             # print('---- check new solution ----')
             # for i in new_solution:
@@ -217,7 +257,7 @@ def simulated_annealing(exam_type, initial_temperature, initial_nper):
     initial_cost = sa_cost_function(current_solution, midterm_dic)
     final_cost = sa_cost_function(final_solution, midterm_dic)
 
-    # print(initial_cost), print(' is the initial cost')
+    print(initial_cost), print(' is the initial cost')
     # print(final_cost), print(' is the final cost')
 
     final_result = []
