@@ -131,7 +131,7 @@ def simulated_annealing(exam_type, initial_temperature, initial_nper):
             cost_new = sa_cost_function(new_solution_after, midterm_dic)
 
             sigma = cost_new - cost_old
-            check_exp = math.pow(math.e, - sigma/temperature) < random.uniform(0,1)
+            check_exp = math.pow(math.e, - sigma/temperature) > random.uniform(0,1)
             if((sigma < 0)):
                 new_solution = new_solution_after
                 neighbor_copy = new_result[1]
