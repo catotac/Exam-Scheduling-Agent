@@ -5,9 +5,9 @@ import copy
 import math
 
 
-def run_algorithm(initial_temp, nper):
-    mid_solution = simulated_annealing('MIDTERM', initial_temp, nper)
-    final_solution = simulated_annealing('FINAL', initial_temp, nper)
+def run_algorithm(initial_temp, final_temp, nper, nmov):
+    mid_solution = simulated_annealing('MIDTERM', initial_temp, nper, final_temp, nmov)
+    final_solution = simulated_annealing('FINAL', initial_temp, nper, final_temp, nmov)
     print('for midle term: '), print(mid_solution[0])
     print('for final term: '), print(final_solution[0])
     # print(len(mid_solution[1]))
@@ -38,12 +38,12 @@ def run_algorithm(initial_temp, nper):
     pass
 
 
-def simulated_annealing(exam_type, initial_temperature, initial_nper):
+def simulated_annealing(exam_type, initial_temperature, initial_nper, tempf, n_move):
     # initial temperature
     temperature = initial_temperature
     temperature0 = temperature
-    pre_defined_n_move = 10
-    final_temp = 1
+    pre_defined_n_move = n_move
+    final_temp = tempf
 
     # fixed nper
     nper = initial_nper
