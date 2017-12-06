@@ -81,8 +81,8 @@ class TAAssignMainForm(forms.Form):
     # Initial temperature for Simulated Annealing
     sa_initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)
     sa_final_temp = forms.IntegerField(label='Final Temperature', initial=1)
-    sa_nper = forms.IntegerField(label='Number of Repetitions', initial=3)
-    sa_nmov = forms.IntegerField(label='Number of Movements', initial=5)
+    sa_num_rep = forms.IntegerField(label='Number of Repetitions', initial=3)
+    sa_num_move = forms.IntegerField(label='Number of Movements', initial=5)
 
 
 class GreedyAlgoForm(forms.Form):
@@ -110,5 +110,5 @@ class GreedyAlgoForm(forms.Form):
 class SAAlgoForm(forms.Form):
     sa_initial_temp = forms.IntegerField(label='Initial Temperature', initial=100)
     sa_final_temp = forms.IntegerField(label='Final Temperature', initial=1)
-    sa_nper = forms.IntegerField(label='Number of Repetitions', initial=3)
-    sa_nmov = forms.IntegerField(label='Number of Movements', initial=5)
+    sa_num_rep = forms.IntegerField(label='Number of Repetitions', initial=3)
+    sa_num_move = forms.IntegerField(label='Number of Movements', initial=5)

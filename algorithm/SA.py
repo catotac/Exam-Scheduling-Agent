@@ -5,9 +5,9 @@ import copy
 import math
 
 
-def run_algorithm(initial_temp, final_temp, nper, nmov):
-    mid_solution = simulated_annealing('MIDTERM', initial_temp, nper, final_temp, nmov)
-    final_solution = simulated_annealing('FINAL', initial_temp, nper, final_temp, nmov)
+def run_algorithm(initial_temp, final_temp, num_rep, num_move):
+    mid_solution = simulated_annealing('MIDTERM', initial_temp, num_rep, final_temp, num_move)
+    final_solution = simulated_annealing('FINAL', initial_temp, num_rep, final_temp, num_move)
     print('for midle term: '), print(mid_solution[0])
     print('for final term: '), print(final_solution[0])
     # print(len(mid_solution[1]))

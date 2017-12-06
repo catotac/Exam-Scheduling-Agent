@@ -323,9 +323,9 @@ def assign_ta(request):
 
             # Call Lei's algorithm
             SA.run_algorithm(form.cleaned_data['sa_initial_temp'],
-                             form.cleaned_data['sa_initial_temp'],
-                             form.cleaned_data['sa_nper'],
-                             form.cleaned_data['sa_nmov'])
+                             form.cleaned_data['sa_final_temp'],
+                             form.cleaned_data['sa_num_rep'],
+                             form.cleaned_data['sa_num_move'])
 
             # Redirect to the home page:
             return HttpResponseRedirect('/')
@@ -370,9 +370,9 @@ def assign_ta_step2(request):
             # Run simulated annealing algorithm
             start = time()
             SA.run_algorithm(form.cleaned_data['sa_initial_temp'],
-                             form.cleaned_data['sa_initial_temp'],
-                             form.cleaned_data['sa_nper'],
-                             form.cleaned_data['sa_nmov'])
+                             form.cleaned_data['sa_final_temp'],
+                             form.cleaned_data['sa_num_rep'],
+                             form.cleaned_data['sa_num_move'])
             stop = time()
             print(str(stop - start) + " s")
 
