@@ -1,4 +1,4 @@
-# Exam Scheduling Application
+﻿# Exam Scheduling Application
 
 ## Introduction
 
@@ -63,6 +63,8 @@ Please follow the instructions on the command window to access the website
 1. Assuming that you have some data in your database, use the command to dump database to a file named data.json: `python manage.py dumpdata > data.json`
 2. Clear the existing contents of the database: `python manage.py flush --no-input`
 3. Import the previous database contents to the empty database: `python manage.py loaddata data.json`
+
+Note: we have our test data included in our project. The initial data is named as data.json, and the data used for testing is named as data_greedy.json. If you would like to test simulated annealing algorithm which we tested specifically for our report, use command 'python manage.py loaddata data_greedy.json' to import the data into the sqlite database. After every execution of simulated annealing algorithm, click on 'Delete All Data' on the index page(because simulated annealing algorithm changed the data in the database), and then run the command 'python manage.py loaddata data_greedy.json' again to reload the data and repeat the simulated annealing algorithm again.
 
 ### Entering Django Shell
 
