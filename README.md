@@ -64,7 +64,21 @@ Please follow the instructions on the command window to access the website
 2. Clear the existing contents of the database: `python manage.py flush --no-input`
 3. Import the previous database contents to the empty database: `python manage.py loaddata data.json`
 
-Note: we have our test data included in our project. The initial data is named as data.json, and the data used for testing is named as data_greedy.json. If you would like to test simulated annealing algorithm which we tested specifically for our report, use command 'python manage.py loaddata data_greedy.json' to import the data into the sqlite database. After every execution of simulated annealing algorithm, click on 'Delete All Data' on the index page(because simulated annealing algorithm changed the data in the database), and then run the command 'python manage.py loaddata data_greedy.json' again to reload the data and repeat the simulated annealing algorithm again.
+__Note:__ Test data files are included in the project. The initial data is named as **data.json**, and the data used for testing is named as **data_greedy.json**.
+
+If you would like to test the simulated annealing algorithm with the data presented in the report, use the command 
+
+`python manage.py loaddata data_greedy.json`
+ 
+ to import the data into the database. 
+ 
+ After running the simulated annealing algorithm via clicking on *TA Assignment Step 2* link on the GUI, click on **Delete All Data** on the index page. This is a very crucial step, since the simulated annealing algorithm changes the data in the database.
+ 
+ Then, run the command
+ 
+ `python manage.py loaddata data_greedy.json`
+  
+  again to reload the initial data into the database. After data reload, you can repeat the simulated annealing algorithm with different parameters.
 
 ### Entering Django Shell
 
